@@ -17,14 +17,28 @@ a{display:inline-block;margin-top:18px;background:var(--blue);color:#fff;text-de
 p{color:var(--mut);margin:10px 0 0}
 </style></head><body><main>
 <img src="icon-192.png" alt="TruBlue Phoenix">
-<h1 style="margin:14px 0 0;font-size:22px">Customer Book</h1>
-<p>Opening your Book…</p>
-<a id="go" href="https://claude.ai/artifact/NCarCtzxvkTQnq4Lpmiasv">Open Customer Book</a>
+<h1 style="margin:14px 0 0;font-size:22px">TruBlue Customer Book</h1>
+<div id="save">
+<p style="color:var(--fg);font-weight:600;margin-top:16px">Save this page as an app icon:</p>
+<p>iPhone (Chrome): tap <b>Share</b> &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b><br>
+Computer (Chrome): <b>&#8942;</b> menu &rarr; <b>Cast, save and share</b> &rarr; <b>Create shortcut</b></p>
+</div>
+<p id="opening" style="display:none">Opening your Book…</p>
+<a id="go" href="#">Open Customer Book</a>
 </main>
 <script>
 // One permanent link for the team. To move everyone to a new Book or app, change BOOK below.
 var BOOK="https://claude.ai/artifact/NCarCtzxvkTQnq4Lpmiasv";
 document.getElementById('go').href=BOOK;
-setTimeout(function(){location.replace(BOOK)},400);
+var q=new URLSearchParams(location.search);
+if(q.get('go')==='1'||navigator.standalone||matchMedia('(display-mode: standalone)').matches){
+  document.getElementById('save').style.display='none';
+  document.getElementById('opening').style.display='block';
+  location.replace(BOOK);
+}else{
+  // The icon people save points at ?go=1, so tapping it opens the Book straight away.
+  try{history.replaceState(null,'',location.pathname+'?go=1')}catch(e){}
+}
 </script>
-</body></html>
+</body>
+</html>
