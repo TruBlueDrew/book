@@ -15,16 +15,18 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 img{width:120px;height:120px;border-radius:50%}
 a{display:inline-block;margin-top:18px;background:var(--blue);color:#fff;text-decoration:none;padding:14px 26px;border-radius:12px;font-weight:600}
 p{color:var(--mut);margin:10px 0 0}
+.save{margin:28px auto 0;max-width:420px;border:1px solid var(--line,#d6dee8);border-radius:14px;padding:16px;text-align:left}
+.save .st{color:var(--fg);font-weight:700;margin:0}.save #how{color:var(--fg);font-size:17px}.small{font-size:14px}
 </style></head><body><main>
 <img src="icon-192.png" alt="TruBlue Phoenix">
 <h1 style="margin:14px 0 0;font-size:22px">TruBlue Customer Book</h1>
-<div id="save">
-<p style="color:var(--fg);font-weight:600;margin-top:16px">Save this page as an app icon:</p>
-<p>iPhone (Chrome): tap <b>Share</b> &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b><br>
-Computer (Chrome): <b>&#8942;</b> menu &rarr; <b>Cast, save and share</b> &rarr; <b>Create shortcut</b></p>
-</div>
 <p id="opening" style="display:none">Opening your Book…</p>
 <a id="go" href="#">Open Customer Book</a>
+<div id="save" class="save">
+<p class="st">One time only: save the TruBlue icon</p>
+<p id="how"></p>
+<p class="small">Then use the icon every day. If it asks you to sign in, use your TruBlue email.</p>
+</div>
 </main>
 <script>
 // One permanent link for the team. To move everyone to a new Book or app, change BOOK below.
@@ -38,6 +40,17 @@ if(q.get('go')==='1'||navigator.standalone||matchMedia('(display-mode: standalon
 }else{
   // The icon people save points at ?go=1, so tapping it opens the Book straight away.
   try{history.replaceState(null,'',location.pathname+'?go=1')}catch(e){}
+  var u=navigator.userAgent,h;
+  var ios=/iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1);
+  if(ios&&/CriOS/.test(u))h='Tap <b>Share</b> (square with an arrow, top right) &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b>.';
+  else if(ios)h='Tap <b>Share</b> (square with an arrow) &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b>.';
+  else if(/Android/.test(u)&&/EdgA/.test(u))h='Tap <b>&#8943;</b> (bottom) &rarr; <b>Add to phone</b> &rarr; <b>Add</b>.';
+  else if(/Android/.test(u))h='Tap <b>&#8942;</b> (top right) &rarr; <b>Add to Home screen</b> &rarr; <b>Add</b>.';
+  else if(/Edg\//.test(u))h='Click <b>&#8943;</b> (top right) &rarr; <b>More tools</b> &rarr; <b>Pin to taskbar</b>. The TruBlue icon now sits on your taskbar.';
+  else if(/Chrome\//.test(u))h='Click <b>&#8942;</b> (top right) &rarr; <b>Cast, save and share</b> &rarr; <b>Create shortcut</b> &rarr; tick <b>Open as window</b> &rarr; <b>Create</b>. The TruBlue icon is now on your desktop.';
+  else if(/Firefox/.test(u))h='Press <b>Ctrl+D</b> (Mac: <b>&#8984;D</b>) to bookmark this page, or drag the address onto your desktop.';
+  else h='Press <b>&#8984;D</b> to bookmark this page, or drag the address onto your desktop.';
+  document.getElementById('how').innerHTML=h;
 }
 </script>
 </body>
