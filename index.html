@@ -20,7 +20,7 @@ p{color:var(--mut);margin:10px 0 0}
 </style></head><body><main>
 <img src="icon-192.png" alt="TruBlue Phoenix">
 <h1 style="margin:14px 0 0;font-size:22px">TruBlue Customer Book</h1>
-<p id="opening" style="display:none">Opening your Book…</p>
+<p id="opening" style="display:none">Opening Customer Book…</p>
 <a id="go" href="#">Open Customer Book</a>
 <div id="save" class="save">
 <p class="st">One time only: save the TruBlue icon</p>
@@ -29,8 +29,12 @@ p{color:var(--mut);margin:10px 0 0}
 </div>
 </main>
 <script>
-// One permanent link for the team. To move everyone to a new Book or app, change BOOK below.
-var BOOK="https://claude.ai/artifact/NCarCtzxvkTQnq4Lpmiasv";
+// One permanent link per app (Drew, Oct 21, 2026). Preview = practice copy (sample data) until PREVIEW_UNTIL; then "come back soon";
+// at go-live set BOOK to the live app and LIVE=true. People keep the same icon the whole time.
+var BOOK="https://claude.ai/artifact/9JJLdep1AbPhEDDBTuJSAR";
+var LIVE=false;
+var PREVIEW_UNTIL=new Date("2026-10-21T21:00:00-07:00");
+if(!LIVE&&new Date()>=PREVIEW_UNTIL){document.querySelector("main").innerHTML='<img src="icon-192.png" alt="TruBlue Phoenix"><h1 style="margin:14px 0 0;font-size:22px">Still building. The Customer Book will come back soon.</h1><p>Thanks for trying it out. Keep the icon: it will open the finished app when it is ready.</p><a href="https://pro.housecallpro.com/app/">Open Housecall Pro</a>';throw new Error("paused");}
 document.getElementById('go').href=BOOK;
 var q=new URLSearchParams(location.search);
 if(q.get('go')==='1'||navigator.standalone||matchMedia('(display-mode: standalone)').matches){

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Guestimator</title>
+<meta name="apple-mobile-web-app-title" content="Guestimator">
+<meta name="theme-color" content="#0a6cb4">
+<link rel="icon" href="../favicon.ico" sizes="any"><link rel="icon" type="image/png" href="../icon-192.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#fff;--fg:#0f2437;--mut:#5a6b7b;--blue:#0a6cb4}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1620;--fg:#eef3f8;--mut:#9fb0c0}}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--fg);font:16px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:16px;box-sizing:border-box}
+img{width:120px;height:120px;border-radius:50%}
+a{display:inline-block;margin-top:18px;background:var(--blue);color:#fff;text-decoration:none;padding:14px 26px;border-radius:12px;font-weight:600}
+p{color:var(--mut);margin:10px 0 0}
+.save{margin:28px auto 0;max-width:420px;border:1px solid var(--line,#d6dee8);border-radius:14px;padding:16px;text-align:left}
+.save .st{color:var(--fg);font-weight:700;margin:0}.save #how{color:var(--fg);font-size:17px}.small{font-size:14px}
+</style></head><body><main>
+<img src="../icon-192.png" alt="TruBlue Phoenix">
+<h1 style="margin:14px 0 0;font-size:22px">TruBlue Guestimator</h1>
+<p id="opening" style="display:none">Opening Guestimator…</p>
+<a id="go" href="#">Open Guestimator</a>
+<div id="save" class="save">
+<p class="st">One time only: save the TruBlue icon</p>
+<p id="how"></p>
+<p class="small">Then use the icon every day. If it asks you to sign in, use your TruBlue email.</p>
+</div>
+</main>
+<script>
+// One permanent link per app (Drew, Oct 21, 2026). Preview = practice copy (sample data) until PREVIEW_UNTIL; then "come back soon";
+// at go-live set BOOK to the live app and LIVE=true. People keep the same icon the whole time.
+var BOOK="https://claude.ai/artifact/VGpjtJoKbb92VfUADcd8q5";
+var LIVE=false;
+var PREVIEW_UNTIL=new Date("2026-10-21T21:00:00-07:00");
+if(!LIVE&&new Date()>=PREVIEW_UNTIL){document.querySelector("main").innerHTML='<img src="../icon-192.png" alt="TruBlue Phoenix"><h1 style="margin:14px 0 0;font-size:22px">Still building. The Guestimator will come back soon.</h1><p>Thanks for trying it out. Keep the icon: it will open the finished app when it is ready.</p><a href="https://pro.housecallpro.com/app/">Open Housecall Pro</a>';throw new Error("paused");}
+document.getElementById('go').href=BOOK;
+var q=new URLSearchParams(location.search);
+if(q.get('go')==='1'||navigator.standalone||matchMedia('(display-mode: standalone)').matches){
+  document.getElementById('save').style.display='none';
+  document.getElementById('opening').style.display='block';
+  location.replace(BOOK);
+}else{
+  // The icon people save points at ?go=1, so tapping it opens the Book straight away.
+  try{history.replaceState(null,'',location.pathname+'?go=1')}catch(e){}
+  var u=navigator.userAgent,h;
+  var ios=/iPhone|iPad|iPod/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1);
+  if(ios&&/CriOS/.test(u))h='Tap <b>Share</b> (square with an arrow, top right) &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b>.';
+  else if(ios)h='Tap <b>Share</b> (square with an arrow) &rarr; <b>Add to Home Screen</b> &rarr; <b>Add</b>.';
+  else if(/Android/.test(u)&&/EdgA/.test(u))h='Tap <b>&#8943;</b> (bottom) &rarr; <b>Add to phone</b> &rarr; <b>Add</b>.';
+  else if(/Android/.test(u))h='Tap <b>&#8942;</b> (top right) &rarr; <b>Add to Home screen</b> &rarr; <b>Add</b>.';
+  else if(/Edg\//.test(u))h='Click <b>&#8943;</b> (top right) &rarr; <b>More tools</b> &rarr; <b>Pin to taskbar</b>. The TruBlue icon now sits on your taskbar.';
+  else if(/Chrome\//.test(u))h='Click <b>&#8942;</b> (top right) &rarr; <b>Cast, save and share</b> &rarr; <b>Create shortcut</b> &rarr; tick <b>Open as window</b> &rarr; <b>Create</b>. The TruBlue icon is now on your desktop.';
+  else if(/Firefox/.test(u))h='Press <b>Ctrl+D</b> (Mac: <b>&#8984;D</b>) to bookmark this page, or drag the address onto your desktop.';
+  else h='Press <b>&#8984;D</b> to bookmark this page, or drag the address onto your desktop.';
+  document.getElementById('how').innerHTML=h;
+}
+</script>
+</body>
+</html>
