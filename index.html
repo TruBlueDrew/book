@@ -31,7 +31,7 @@ p{color:var(--mut);margin:10px 0 0}
 <script>
 // One permanent link per app (Drew, Oct 21, 2026). Preview = practice copy (sample data) until PREVIEW_UNTIL; then "come back soon";
 // at go-live set BOOK to the live app and LIVE=true. People keep the same icon the whole time.
-var BOOK="https://claude.ai/artifact/9JJLdep1AbPhEDDBTuJSAR";
+var BOOK="https://command-center.taild5d47f.ts.net:8443/review/";
 var LIVE=false;
 var PREVIEW_UNTIL=new Date("2026-10-22T18:00:00-07:00");
 if(!LIVE&&new Date()>=PREVIEW_UNTIL){document.querySelector("main").innerHTML='<img src="icon-192.png" alt="TruBlue Phoenix"><h1 style="margin:14px 0 0;font-size:22px">Still building. The Customer Book will come back soon.</h1><p>Thanks for trying it out. Keep the icon: it will open the finished app when it is ready.</p><a href="https://pro.housecallpro.com/app/">Open Housecall Pro</a>';throw new Error("paused");}
